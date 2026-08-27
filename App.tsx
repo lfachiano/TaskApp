@@ -3,7 +3,11 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Card from './components/Card';
 import Cabecalho from './components/Cabecalho';
 import Botao from './components/Botao';
+import Aluno from './components/Aluno';
 
+function selecionarTarefa() {
+	console.log('Tarefa selecionada');
+}
 
 export default function App() {
 
@@ -12,8 +16,20 @@ export default function App() {
 
 		<Cabecalho />
        
-		<Card />
-		<Card />        
+
+		<Card 
+			titulo='Atividade 01' 
+			descricao='Descricao da Atividade 01' 
+			status='Concluída' 
+			onPress={selecionarTarefa}
+		/>
+
+		<Card 
+			titulo='Atividade 02' 
+			descricao='Descricao da Atividade 02' 
+			status='Em Andamento'
+			onPress={selecionarTarefa}
+		/>
 
 		<Botao />
 
