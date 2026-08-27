@@ -2,13 +2,15 @@ import { Button, Image, Pressable, StyleSheet, Text, TextInput } from "react-nat
 import { View } from "react-native";
 
 type CardProps = {
+    id: number,
     titulo: string,
     descricao: string,
     status: string,
-    onPress: () => void
+    onPress: (id: number) => void
 }
 
 export default function Card({ 
+    id,
     titulo, 
     descricao, 
     status, 
@@ -18,7 +20,7 @@ export default function Card({
 
     return (
         <Pressable 
-            onPress={onPress}
+            onPress={() => onPress(id)} 
             style={ styles.card }
         >
             <Text style={ styles.titulo }> { titulo } </Text>
