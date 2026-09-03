@@ -4,10 +4,8 @@ import Card from './components/Card';
 import Cabecalho from './components/Cabecalho';
 import Botao from './components/Botao';
 import Aluno from './components/Aluno';
-
-function selecionarTarefa(id: number) {
-	console.log('Tarefa selecionada:', id);
-}
+import Status from './components/Status';
+import Contador from './components/Contador';
 
 export default function App() {
 
@@ -18,19 +16,13 @@ export default function App() {
        
 
 		<Card 
-			id={1}
 			titulo='Atividade 01' 
 			descricao='Descricao da Atividade 01' 
-			status='Concluída' 
-			onPress={selecionarTarefa}
 		/>
 
 		<Card 
-			id={2}
 			titulo='Atividade 02' 
 			descricao='Descricao da Atividade 02' 
-			status='Em Andamento'
-			onPress={selecionarTarefa}
 		/>
 
 		<Botao />
