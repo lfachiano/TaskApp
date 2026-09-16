@@ -1,13 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { FlatList, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import Card from './components/Card';
-import Cabecalho from './components/Cabecalho';
+import React, { useState } from 'react';
+import { Tarefa } from './models/Tarefa';
+import {
+	FlatList,
+	KeyboardAvoidingView,
+	Platform,
+	StyleSheet,
+	Text,
+	TextInput,
+	View,
+} from 'react-native';
 import Botao from './components/Botao';
-import Aluno from './components/Aluno';
-import Status from './components/Status';
-import Contador from './components/Contador';
-import { useState } from 'react';
-import { Tarefa } from './models/tarefa';
+import Card from './components/Card';
 
 export default function App() {
 
