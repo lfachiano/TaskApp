@@ -1,7 +1,4 @@
-import React from "react";
-import { useState } from "react";
-import { Button, Image, Pressable, StyleSheet, Text, TextInput } from "react-native";
-import { View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 type CardProps = {
     id: number,
@@ -24,15 +21,17 @@ export default function Card({
         <View style={styles.card}>
             <Text style={styles.titulo}>{ titulo }</Text>
             <Text style={styles.descricao}>{ descricao }</Text>
-            <Text style={styles.status}>{ status }</Text>
+            
+            <View style={styles.rodape}>
+              <Text style={styles.status}>Status: { status }</Text>
 
-            <Pressable 
-                style={styles.botaoExcluir}
-                onPress={() => onDelete(id)}
-            >
-                <Text style={styles.textoExcluir}>Exluir</Text>
-            </Pressable>
-
+              <Pressable 
+                  style={styles.botaoExcluir}
+                  onPress={() => onDelete(id)}
+              >
+                  <Text style={styles.textoExcluir}>Exluir</Text>
+              </Pressable>
+            </View>
         </View>
 
     );
@@ -72,5 +71,12 @@ const styles = StyleSheet.create({
   
     textoExcluir: {
       fontWeight: 'bold',
+    },
+
+    rodape: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: 12
     },
   });

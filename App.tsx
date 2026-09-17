@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Tarefa } from './models/Tarefa';
 import {
 	FlatList,
@@ -77,10 +77,11 @@ export default function App() {
 			contentContainerStyle={styles.conteudo}
 
 			ListHeaderComponent={
-				<View>
-					<Text style={styles.tituloApp}>TASKLIST</Text>
+				<View style={styles.cabecalho}>
+					<Text style={styles.tituloApp}>TASKAPP</Text>
 					<Text style={styles.subtituloApp}>Gerenciador de Tarefas</Text>
 
+					
 					<Text style={styles.tituloFormulario}>Nova Tarefa</Text>
 
 					<Text style={styles.label}>Título</Text>
@@ -108,8 +109,18 @@ export default function App() {
 						titulo='Adicionar'
 						onPress={cadastrar}
 					/>		
+		
 
+					<View style={styles.cabecalhoLista}>
 					<Text style={styles.tituloLista}>LISTA</Text>
+					<Text style={styles.tituloLista}>
+						{
+							tarefas.length > 0 ?
+							`${ tarefas.length } tarefas` : 
+							`Nenhuma tarefa`
+						}
+					</Text>
+					</View>
 				</View>					
 			}	
 
@@ -137,6 +148,9 @@ export default function App() {
 
 	</KeyboardAvoidingView>
   );
+
+
+
 }
 
 const styles = StyleSheet.create({ 
@@ -175,6 +189,7 @@ const styles = StyleSheet.create({
 	},
   
 	input: {
+	  width: '100%',
 	  borderWidth: 1,
 	  borderRadius: 8,
 	  padding: 12,
@@ -210,5 +225,20 @@ const styles = StyleSheet.create({
 	  fontWeight: 'bold',
 	  marginBottom: 5,
 	},
+
+	cabecalho: {
+		alignItems: 'center',
+		marginBottom: 30
+	},
+
+	formulario: {
+		width: '100%'
+	},
+
+	cabecalhoLista: {
+		alignSelf: 'stretch',
+		justifyContent: 'space-between',
+		flexDirection: 'row'
+	}
 	  
   });
