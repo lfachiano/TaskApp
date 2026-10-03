@@ -5,7 +5,7 @@ type CardProps = {
     titulo: string,
     descricao: string,
     status: string,
-    onDelete: (id: number) => void
+    onPress: () => void
 }
 
 export default function Card({ 
@@ -13,7 +13,7 @@ export default function Card({
     titulo, 
     descricao, 
     status,
-    onDelete
+    onPress
     }: CardProps) 
 {
  
@@ -27,9 +27,9 @@ export default function Card({
 
               <Pressable 
                   style={styles.botaoExcluir}
-                  onPress={() => onDelete(id)}
+                  onPress={onPress}
               >
-                  <Text style={styles.textoExcluir}>Exluir</Text>
+                  <Text style={styles.textoExcluir}>Detalhes</Text>
               </Pressable>
             </View>
         </View>

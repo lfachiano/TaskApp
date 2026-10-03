@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import { Tarefa } from './models/Tarefa';
 import {
-	FlatList,
-	KeyboardAvoidingView,
-	Platform,
 	StyleSheet,
-	Text,
-	TextInput,
-	View,
 } from 'react-native';
-import Botao from './components/Botao';
-import Card from './components/Card';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import ListaScreen from './screens/ListaScreen';
+import DetalheScreen from './screens/DetalheScreen';
+import EdicaoScreen from './screens/EdicaoScreen';
+import CadastroScreen from './screens/CadastroScreen';
+import { RootStackParamList } from './navigation/types';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
 
+	/*
 	const[tarefas, setTarefas] = useState<Tarefa[]>([
 		{
 			id: 1,
@@ -149,7 +149,34 @@ export default function App() {
 	</KeyboardAvoidingView>
   );
 
+*/
+    
 
+	return(
+		<NavigationContainer>
+			<Stack.Navigator id="MainStack">
+				<Stack.Screen 
+					name= "Lista"
+					component = {ListaScreen}
+				/>
+
+				<Stack.Screen 
+					name= "Detalhe"
+					component = {DetalheScreen}
+				/>
+
+				<Stack.Screen 
+					name= "Edicao"
+					component = {EdicaoScreen}
+				/>
+
+				<Stack.Screen 
+					name= "Cadastro"
+					component = {CadastroScreen}
+				/>
+			</Stack.Navigator>
+		</NavigationContainer>
+	);
 
 }
 
