@@ -1,9 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { RootStackParamList } from "../navigation/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tarefa } from "../models/Tarefa";
 import Botao from "../components/Botao";
+import { listarTarefaPorId } from "../services/tarefaService";
 
 type Props = NativeStackScreenProps<
     RootStackParamList,
@@ -12,25 +13,60 @@ type Props = NativeStackScreenProps<
 
 export default function DetalheScreen({route, navigation}: Props) {
 
-    const tarefas: Tarefa[] = [
-		{
-			id: 1,
-			titulo: 'Estudar Desenvolvimento Mobile',
-			descricao: 'Revisar Estados e Propriedades',
-			status: 'Pendente'
-		},
-		{
-			id: 2,
-			titulo: 'Me preparar para o ENADE',
-			descricao: 'Revisar Todo o Conteúdo',
-			status: 'Pendente'
-		},
-	];
+    const { id } = route.params;
 
+    const [tarefa, setTarefa] = useState<Tarefa | null>(null)
+    const [carregando, setCarregando] = useState(false);
+    const [erro, setErro] = useState('');
+
+    async function carregarTarefa() {
+        try {
+            setCarregando(true);
+            setErro('');
+
+            const dados = await listarTarefaPorId(id);
+            setTarefa(dados);
+        } catch(error) {
+
+            if (error instanceof Error &&
+                error.message === `Tarefa não encontrada`
+                ) {
+                    setErro("Tarefa não encontrada.");
+            } else {
+                setErro("Falha ao buscar tarefa.")
+            }
+
+        } finally {
+            setCarregando(false);
+        }
+    }
     
-    const tarefa = tarefas.find(
-        item => item.id === route.params.id
-    );
+    useEffect(() => {
+        carregarTarefa()
+    }, [id]);
+
+    if (carregando) {
+		return(
+			<View style={styles.centro}>
+				<ActivityIndicator size="large" />
+				<Text>Aguarde...</Text>
+			</View>
+		);
+	}
+
+	if (erro !== '') {
+		<View style={styles.centro}>
+			<Text style={styles.erro}>
+				{ erro }
+			</Text>
+
+			<Botao 
+			    titulo="Tentar Novamente" 
+				onPress={carregarTarefa}>
+			</Botao>
+		</View>
+
+	}
 
     if (!tarefa) {
         return (
@@ -72,5 +108,17 @@ const styles = StyleSheet.create({
     titulo: {
         fontWeight: 'bold',
         fontSize: 24,
-    }
+    },
+
+    centro: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		padding: 24
+	},
+
+    erro: {
+        marginTop: 10,
+        fontWeight: 'bold',
+    },
 });
